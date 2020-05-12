@@ -1,2 +1,1 @@
-usr/bin/kinect2pipe usr/bin/kinect2pipe
-usr/lib/systemd/system/kinect2pipe.service lib/systemd/system
+debian/kinect2pipe/usr/lib/x86_64-linux-gnu/systemd/system/*.service lib/systemd/system
