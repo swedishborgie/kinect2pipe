@@ -8,7 +8,7 @@ Homepage: https://github.com/swedishborgie/kinect2pipe
 
 Package: kinect2pipe
 Architecture: amd64
-Depends: ${shlibs:Depends}, ${misc:Depends}, libfreenect2, libswscale, v4l2loopback-dkms
+Depends: ${shlibs:Depends}, ${misc:Depends}, libfreenect2, libswscale5, v4l2loopback-dkms
 Description: Utility for piping video from a Kinect2 to a loopback device
  This application pipes the RGB camera output from a Microsoft
  Kinect 2 (xbox one) to a v4l2loopback device.
