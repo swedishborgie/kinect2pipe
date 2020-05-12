@@ -1,0 +1,14 @@
+Source: kinect2pipe
+Section: misc
+Priority: optional
+Maintainer: Michael Powers <swedishborgie@gmail.com>
+Build-Depends: debhelper-compat (= 12), libfreenect2-dev, libswscale-dev
+Standards-Version: 4.4.1
+Homepage: https://github.com/swedishborgie/kinect2pipe
+
+Package: kinect2pipe
+Architecture: amd64
+Depends: ${shlibs:Depends}, ${misc:Depends}, libfreenect2, libswscale, v4l2loopback-dkms
+Description: Utility for piping video from a Kinect2 to a loopback device
+ This application pipes the RGB camera output from a Microsoft
+ Kinect 2 (xbox one) to a v4l2loopback device.

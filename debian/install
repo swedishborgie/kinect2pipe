@@ -1,0 +1,2 @@
+kinect2pipe /usr/bin/kinect2pipe
+contrib/systemd/kinect2pipe.service /lib/systemd/system
