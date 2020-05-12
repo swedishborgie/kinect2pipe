@@ -2,7 +2,7 @@ Source: kinect2pipe
 Section: misc
 Priority: optional
 Maintainer: Michael Powers <swedishborgie@gmail.com>
-Build-Depends: debhelper-compat (= 12), libfreenect2-dev, libswscale-dev
+Build-Depends: debhelper-compat (= 12), cmake, pkg-config, libfreenect2-dev, libswscale-dev
 Standards-Version: 4.4.1
 Homepage: https://github.com/swedishborgie/kinect2pipe
 
