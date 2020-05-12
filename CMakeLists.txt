@@ -11,5 +11,5 @@ add_executable(kinect2pipe kinect2pipe.cpp main.cpp)
 target_include_directories(kinect2pipe PRIVATE ${freenect2_INCLUDE_DIRS} ${libswscale_INCLUDE_DIRS})
 target_link_libraries(kinect2pipe ${freenect2_LIBRARIES} ${libswscale_LIBRARIES} pthread)
 
-INSTALL(TARGETS kinect2pipe DESTINATION bin)
-INSTALL(FILES "${CMAKE_SOURCE_DIR}/contrib/systemd/kinect2pipe.service" DESTINATION lib/systemd/system)
+INSTALL(TARGETS kinect2pipe DESTINATION ${CMAKE_INSTALL_BINDIR})
+INSTALL(FILES "${CMAKE_SOURCE_DIR}/contrib/systemd/kinect2pipe.service" DESTINATION {$CMAKE_INSTALL_LIBDIR}/systemd/system)
