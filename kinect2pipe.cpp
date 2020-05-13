@@ -73,13 +73,13 @@ bool Kinect2Pipe::openKinect2Device() {
     SyncMultiFrameListener listener(Frame::Color);
     Freenect2Device *dev;
     if (freenect2.enumerateDevices() == 0) {
-        std::cerr << "unable to find a kinect2 device to connect to" << endl;
+        cerr << "unable to find a kinect2 device to connect to" << endl;
         return false;
     }
     dev = freenect2.openDefaultDevice();
     dev->setColorFrameListener(&listener);
     if (!dev->startStreams(true, false)) {
-        std::cerr << "unable to start kinect2 rgb stream" << endl;
+        cerr << "unable to start kinect2 rgb stream" << endl;
         return false;
     }
     while (this->started) {
@@ -199,9 +199,9 @@ void Kinect2Pipe::run() {
             // If we get here we've shut down.
             lk.unlock();
 
-            //TODO: Fix this, there's a memory leak somewhere in libfreenect2 and we should be able to avoid it and not
-            //have to bounce the process every time, but for now this is the cleaner way to do it and let systemd
-            //restart us.
+            /* TODO: Fix this, there's a memory leak somewhere in libfreenect2 and we should be able to avoid it and not
+             * have to bounce the process every time, but for now this is the cleaner way to do it and let systemd
+             * restart us. */
             exit(0);
         }
     }
