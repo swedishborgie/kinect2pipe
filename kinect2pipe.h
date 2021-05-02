@@ -13,11 +13,14 @@ using namespace libfreenect2;
 #define KINECT2_IMAGE_WIDTH 1920
 #define KINECT2_IMAGE_HEIGHT 1080
 
+#define OUTPUT_WIDTH 1920
+#define OUTPUT_HEIGHT 1080
+
 // The YUV420 buffer layout that V4L2 expects -- it expects Y first, followed by U, then V.
 // The Y length in the YUV420 buffer is the width times the height of the image.
-#define YUV_BUFFER_Y_LEN (KINECT2_IMAGE_WIDTH * KINECT2_IMAGE_HEIGHT)
+#define YUV_BUFFER_Y_LEN (OUTPUT_WIDTH * OUTPUT_HEIGHT)
 // The U and V length in the YUV420 buffer is half the width time half the height of the image.
-#define YUV_BUFFER_UV_LEN ((KINECT2_IMAGE_WIDTH/2) * (KINECT2_IMAGE_HEIGHT/2))
+#define YUV_BUFFER_UV_LEN ((OUTPUT_WIDTH/2) * (OUTPUT_HEIGHT/2))
 // Total length of the YUV420 image.
 #define YUV_BUFFER_LEN (YUV_BUFFER_Y_LEN + (YUV_BUFFER_UV_LEN * 2))
 

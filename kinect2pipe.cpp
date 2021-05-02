@@ -16,7 +16,7 @@ using namespace std;
 using namespace libfreenect2;
 
 Kinect2Pipe::Kinect2Pipe () {
-    this->sws = sws_getContext(KINECT2_IMAGE_WIDTH, KINECT2_IMAGE_HEIGHT, AV_PIX_FMT_RGB32, KINECT2_IMAGE_WIDTH, KINECT2_IMAGE_HEIGHT, AV_PIX_FMT_YUV420P, SWS_BILINEAR, nullptr, nullptr, nullptr);
+    this->sws = sws_getContext(KINECT2_IMAGE_WIDTH, KINECT2_IMAGE_HEIGHT, AV_PIX_FMT_RGB32, OUTPUT_WIDTH, OUTPUT_HEIGHT, AV_PIX_FMT_YUV420P, SWS_BILINEAR, nullptr, nullptr, nullptr);
     memset(this->srcPtr, 0, sizeof(uint8_t*) * 4);
     this->srcStride[0] = KINECT2_IMAGE_WIDTH*4;
     this->srcStride[1] = 0;
@@ -28,9 +28,9 @@ Kinect2Pipe::Kinect2Pipe () {
     this->dstPtr[1] = this->imageBuffer + YUV_BUFFER_Y_LEN;
     this->dstPtr[2] = this->imageBuffer + YUV_BUFFER_Y_LEN + YUV_BUFFER_UV_LEN;
     this->dstPtr[3] = nullptr;
-    this->dstStride[0] = KINECT2_IMAGE_WIDTH;
-    this->dstStride[1] = KINECT2_IMAGE_WIDTH/2;
-    this->dstStride[2] = KINECT2_IMAGE_WIDTH/2;
+    this->dstStride[0] = OUTPUT_WIDTH;
+    this->dstStride[1] = OUTPUT_WIDTH/2;
+    this->dstStride[2] = OUTPUT_WIDTH/2;
     this->dstStride[3] = 0;
 
     this->v4l2Device = 0;
@@ -43,7 +43,7 @@ Kinect2Pipe::Kinect2Pipe () {
 }
 
 void Kinect2Pipe::openLoopback(const char *loopbackDev) {
-    if (!this->openV4L2LoopbackDevice(loopbackDev, KINECT2_IMAGE_WIDTH, KINECT2_IMAGE_HEIGHT)) {
+    if (!this->openV4L2LoopbackDevice(loopbackDev, OUTPUT_WIDTH, OUTPUT_HEIGHT)) {
         exit(1);
     }
     this->writeBlankFrame();
