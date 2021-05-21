@@ -55,6 +55,7 @@ void Kinect2Pipe::openLoopback(const char *loopbackDev) {
 bool Kinect2Pipe::openV4L2LoopbackDevice(const char* loopbackDev, int width, int height) {
     this->v4l2Device = open(loopbackDev, O_WRONLY);
     if (this->v4l2Device < 0) {
+        cerr << "failed to open v4l2loopback device: " << errno << endl;
         return false;
     }
     struct v4l2_format fmt{};
@@ -66,7 +67,13 @@ bool Kinect2Pipe::openV4L2LoopbackDevice(const char* loopbackDev, int width, int
     fmt.fmt.pix.field = V4L2_FIELD_NONE;
     fmt.fmt.pix.bytesperline = fmt.fmt.pix.width;
     fmt.fmt.pix.colorspace = V4L2_COLORSPACE_SRGB;
-    return ioctl(this->v4l2Device, VIDIOC_S_FMT, &fmt) >= 0;
+
+    if (ioctl(this->v4l2Device, VIDIOC_S_FMT, &fmt) < 0) {
+        cerr << "failed to issue ioctl to v4l2loopback device: " << errno << endl;
+        return false;
+    }
+
+    return true;
 }
 
 bool Kinect2Pipe::openKinect2Device() {
@@ -107,10 +114,12 @@ bool Kinect2Pipe::handleFrame(Frame* frame) {
 bool Kinect2Pipe::openWatchV4L2LoopbackDevice(const char* loopbackDev) {
     this->inotifyFd = inotify_init();
     if (this->inotifyFd < 0) {
+        cerr << "failed to initialize inotify watcher: " << errno << endl;
         return false;
     }
     this->watcherFd = inotify_add_watch(this->inotifyFd, loopbackDev, IN_OPEN|IN_CLOSE);
     if (this->watcherFd < 0) {
+        cerr << "failed to initialize add inotify watcher on " << loopbackDev << ": " << errno << endl;
         return false;
     }
     this->watcherThread = thread (&Kinect2Pipe::watchV4L2LoopbackDevice, this);
